@@ -278,7 +278,7 @@ It is defined by
 <p align="center">
 <img src="LaTeX/tfidf.png" style="display: block; margin: auto;" />
 </p>
-The *Tf* value is usually scaled with the highest term frequency in the document. The logarithm is used as a weighting scheme to give words that appear in many documents a smaller weight. There are many different formulas one can use. Another popular one is the smooth Idf which adds ![1](https://latex.codecogs.com/png.latex?1 "1") in the logarithm to prevent giving a word that appears in every document a value of ![0](https://latex.codecogs.com/png.latex?0 "0"):
+The *Tf* value is usually scaled with the highest term frequency in the document. The logarithm is used as a weighting scheme to give words that appear in many documents a smaller weight. There are many different formulas one can use. Another popular one is the smooth Idf which adds 1 in the logarithm to prevent giving a word that appears in every document a value of 0:
 
 <p align="center">
 <img src="LaTeX/idf_smooth.png" style="display: block; margin: auto;" />

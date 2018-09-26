@@ -4,6 +4,13 @@
 
 # Session Data files
 .RData
+correlation.R.RData
+correlation.RData
+Exploration.RData
+Exploration_bybook.RData
+LDA.RData
+pairwise_correlation.RData
+WorFreq.RData
 
 # Example code in package build process
 *-Ex.R

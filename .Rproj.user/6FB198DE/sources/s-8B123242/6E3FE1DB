@@ -1,0 +1,24 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1537955954521.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "45|11|178|0|\n",
+    "hash" : "0",
+    "id" : "6E3FE1DB",
+    "lastKnownWriteTime" : 1537959362,
+    "last_content_update" : 1537959362611,
+    "path" : "C:/Users/swesd/Desktop/NLP/SA_nlp/Additional.Rmd",
+    "project_path" : "Additional.Rmd",
+    "properties" : {
+        "cursorPosition" : "190,227",
+        "last_setup_crc32" : "8B123242bb338d19",
+        "scrollLine" : "45",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 10,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

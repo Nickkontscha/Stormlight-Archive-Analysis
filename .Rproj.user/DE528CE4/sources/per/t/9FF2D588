@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1536013287425.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2838122107",
+    "id" : "9FF2D588",
+    "lastKnownWriteTime" : 1536014051,
+    "last_content_update" : 1536014051454,
+    "path" : "C:/Users/Kontschak Nick/Desktop/SA_nlp/loadData/loadData_characters.R",
+    "project_path" : "loadData/loadData_characters.R",
+    "properties" : {
+        "cursorPosition" : "25,25",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

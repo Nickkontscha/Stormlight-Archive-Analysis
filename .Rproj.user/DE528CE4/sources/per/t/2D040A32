@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1536148155521.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3970425240",
+    "id" : "2D040A32",
+    "lastKnownWriteTime" : 1536148231,
+    "last_content_update" : 1536148231523,
+    "path" : "C:/Users/Kontschak Nick/Desktop/SA_nlp/Wordclouds.R",
+    "project_path" : "Wordclouds.R",
+    "properties" : {
+        "cursorPosition" : "41,0",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

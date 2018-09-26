@@ -1,0 +1,40 @@
+library(text2vec)
+library(glmnet)
+
+data("movie_review")
+train <- movie_review[1:4000, ]
+test <- movie_review[4001:5000, ]
+
+
+tfidf_model <- create_tfidf_model(train, text_variable = "review", class_variable = "id", FUN = idf_smooth)
+train_tfidf <- create_tfidf_from_model(train, text_variable = "review", tfidf_model = tfidf_model[[1]], 
+                                       vectorizer = tfidf_model[[2]], FUN = idf_smooth)
+test_tfidf <- create_tfidf_from_model(test, text_variable = "review", tfidf_model = tfidf_model[[1]], 
+                                      vectorizer = tfidf_model[[2]], FUN = idf_smooth)
+
+example_tfidf_model <- create_tfidf_model(train, text_variable = "review", class_variable = "id", FUN = idf_smooth)
+example_train_tfidf <- create_tfidf_from_model(train, text_variable = "review", tfidf_model = example_tfidf_model[[1]], 
+                                               vectorizer = example_tfidf_model[[2]], FUN = idf_smooth)
+example_test_tfidf <- create_tfidf_from_model(test, text_variable = "review", tfidf_model = example_tfidf_model[[1]], 
+                                              vectorizer = example_tfidf_model[[2]], FUN = idf_smooth)
+
+
+# Train models
+glmnet_clas_mine <- cv.glmnet(x = train_tfidf, y = train[['sentiment']], 
+                              family = 'binomial', alpha = 1, type.measure = "auc", nfolds = 4, thresh = 1e-3, maxit = 1e3)
+
+glmnet_clas_example <- cv.glmnet(x = example_train_tfidf, y = train[['sentiment']], 
+                                 family = 'binomial', alpha = 1, type.measure = "auc", nfolds = 4, thresh = 1e-3, maxit = 1e3)
+
+plot(glmnet_clas_mine)
+print(paste("max AUC =", round(max(glmnet_clas_mine$cvm), 4)))
+plot(glmnet_clas_example)
+print(paste("max AUC =", round(max(glmnet_clas_example$cvm), 4)))
+
+# predict with models
+pred <- predict(glmnet_clas_mine, test_tfidf, type = 'response')[,1]
+example_pred <- predict(glmnet_clas_example, example_test_tfidf, type = 'response')[,1]
+# AUC
+glmnet:::auc(test$sentiment, pred)
+glmnet:::auc(test$sentiment, example_pred)
+

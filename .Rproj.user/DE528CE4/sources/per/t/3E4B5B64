@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1536104799100.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3814697798",
+    "id" : "3E4B5B64",
+    "lastKnownWriteTime" : 1536175044,
+    "last_content_update" : 1536175044866,
+    "path" : "C:/Users/Kontschak Nick/Desktop/SA_nlp/WorFreq.R",
+    "project_path" : "WorFreq.R",
+    "properties" : {
+        "cursorPosition" : "150,15",
+        "scrollLine" : "141",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

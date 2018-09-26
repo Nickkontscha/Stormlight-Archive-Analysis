@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#\n# Plotting QUanteda\n# https://docs.quanteda.io/articles/pkgdown/examples/plotting.html\n# https://docs.quanteda.io/articles/pkgdown/comparison.html\n# Good quanteda analysis example:\n# https://github.com/datasciencedojo/IntroToTextAnalyticsWithR/blob/master/IntroToTextAnalytics_Part11.R\n# text2vec analysis:\n# https://cran.r-project.org/web/packages/text2vec/vignettes/text-vectorization.html\n# \n\n# In fact quantedas dfm-class inherits from dgCMatrix-class. So if your code works with dfm-class, in most cases it will work with dgCMatrix as well\n\n\nlibrary(text2vec)\n\nidf_smooth <- function(dtm_matrix){\n  # Number of Documents:\n  N <- nrow(dtm_matrix)\n  # Number of Documents containing a term\n  n_t <- colSums(abs(sign(dtm_matrix)))\n  # Calculating IDF-Value\n  idf <- log( 1 + N/n_t )\n  return(Diagonal(x = idf))\n}\n\n# create a tfidf-model with one document for each class\ncreate_tfidf_model <- function(data, text_variable = \"text\", class_variable = \"class\", FUN = NULL, term_count_min = 0){\n  data$text <- data[, text_variable]\n  data$class <- data[, class_variable]\n  # Carefull: This reorders the data!\n  data <- aggregate(text ~ class, data = data, FUN = paste, collapse = \" \")\n  data_tokens <- itoken(data$text, ids = data$class,\n                        preprocessor = tolower, tokenizer = word_tokenizer, progressbar = FALSE)\n  data_vocab <- create_vocabulary(data_tokens, stopwords = stopwords::stopwords(\"en\"))\n  data_vocab <- prune_vocabulary(data_vocab, term_count_min = term_count_min)\n  vectorizer <- vocab_vectorizer(data_vocab)\n  data_dtm <- create_dtm(data_tokens, vectorizer)\n  \n  if( !is.null(FUN) ){\n    tfidf_model <- idf_smooth(data_dtm)\n  } else {\n    tfidf_model <- TfIdf$new()\n    data_tfidf <- fit_transform(data_dtm, tfidf_model) # Fits model\n  }\n  return(list(tfidf_model, vectorizer))\n}\n# Take a vectorizer and (tf)idf-model and calculate a tfidf-Matrix for data with the idf-weights of the tfidf-model for the words in the vectorizer\ncreate_tfidf_from_model <- function(data, text_variable = \"text\",  FUN = NULL,\n                                    tfidf_model, vectorizer){\n  data$text <- data[, text_variable]\n  data_tokens <- itoken(data$text, \n                        preprocessor = tolower, tokenizer = word_tokenizer, progressbar = FALSE)\n  data_dtm <- create_dtm(data_tokens, vectorizer)\n  if( !is.null(FUN) ){\n    data_tfidf <- data_dtm %*% tfidf_model\n  } else {\n    data_tfidf <- transform(data_dtm, tfidf_model)\n  }\n  return(data_tfidf)\n}\n\n## Prediction\ntfidf_model <- create_tfidf_model(train, text_variable = \"review\", class_variable = \"sentiment\")\ntfidf_model_smooth <- create_tfidf_model(train, text_variable = \"review\", class_variable = \"sentiment\", FUN = idf_smooth)\n\ntrain_tfidf <- create_tfidf_from_model(train, tfidf_model = tfidf_model[[1]], vectorizer = tfidf_model[[2]])\ntest_tfidf <- create_tfidf_from_model(test, tfidf_model = tfidf_model[[1]], vectorizer = tfidf_model[[2]])\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+    "created" : 1536431806886.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2360788790",
+    "id" : "B4A886EC",
+    "lastKnownWriteTime" : 1536503475,
+    "last_content_update" : 1536503475112,
+    "path" : "C:/Users/swesd/Desktop/NLP/SA_nlp/TfIdf.R",
+    "project_path" : "TfIdf.R",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

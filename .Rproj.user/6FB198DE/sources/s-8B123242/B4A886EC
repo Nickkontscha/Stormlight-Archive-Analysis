@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1536431806886.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "B4A886EC",
+    "lastKnownWriteTime" : 1536503475,
+    "last_content_update" : 1536503475112,
+    "path" : "C:/Users/swesd/Desktop/NLP/SA_nlp/TfIdf.R",
+    "project_path" : "TfIdf.R",
+    "properties" : {
+        "cursorPosition" : "61,0",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

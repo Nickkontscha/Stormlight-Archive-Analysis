@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1536432117877.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "EE072E19",
+    "lastKnownWriteTime" : 1537294094,
+    "last_content_update" : 1537294094,
+    "path" : "C:/Users/swesd/Desktop/NLP/SA_nlp/Exploration.R",
+    "project_path" : "Exploration.R",
+    "properties" : {
+        "cursorPosition" : "86,35",
+        "scrollLine" : "68"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

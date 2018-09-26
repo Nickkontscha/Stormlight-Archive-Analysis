@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "library(text2vec)\nlibrary(glmnet)\n\ndata(\"movie_review\")\ntrain <- movie_review[1:4000, ]\ntest <- movie_review[4001:5000, ]\n\n\ntfidf_model <- create_tfidf_model(train, text_variable = \"review\", class_variable = \"id\", FUN = idf_smooth)\ntrain_tfidf <- create_tfidf_from_model(train, text_variable = \"review\", tfidf_model = tfidf_model[[1]], \n                                       vectorizer = tfidf_model[[2]], FUN = idf_smooth)\ntest_tfidf <- create_tfidf_from_model(test, text_variable = \"review\", tfidf_model = tfidf_model[[1]], \n                                      vectorizer = tfidf_model[[2]], FUN = idf_smooth)\n\nexample_tfidf_model <- create_tfidf_model(train, text_variable = \"review\", class_variable = \"id\", FUN = idf_smooth)\nexample_train_tfidf <- create_tfidf_from_model(train, text_variable = \"review\", tfidf_model = example_tfidf_model[[1]], \n                                               vectorizer = example_tfidf_model[[2]], FUN = idf_smooth)\nexample_test_tfidf <- create_tfidf_from_model(test, text_variable = \"review\", tfidf_model = example_tfidf_model[[1]], \n                                              vectorizer = example_tfidf_model[[2]], FUN = idf_smooth)\n\n\n# Train models\nglmnet_clas_mine <- cv.glmnet(x = train_tfidf, y = train[['sentiment']], \n                              family = 'binomial', alpha = 1, type.measure = \"auc\", nfolds = 4, thresh = 1e-3, maxit = 1e3)\n\nglmnet_clas_example <- cv.glmnet(x = example_train_tfidf, y = train[['sentiment']], \n                                 family = 'binomial', alpha = 1, type.measure = \"auc\", nfolds = 4, thresh = 1e-3, maxit = 1e3)\n\nplot(glmnet_clas_mine)\nprint(paste(\"max AUC =\", round(max(glmnet_clas_mine$cvm), 4)))\nplot(glmnet_clas_example)\nprint(paste(\"max AUC =\", round(max(glmnet_clas_example$cvm), 4)))\n\n# predict with models\npred <- predict(glmnet_clas_mine, test_tfidf, type = 'response')[,1]\nexample_pred <- predict(glmnet_clas_example, example_test_tfidf, type = 'response')[,1]\n# AUC\nglmnet:::auc(test$sentiment, pred)\nglmnet:::auc(test$sentiment, example_pred)\n\n",
+    "created" : 1536502290782.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3377054923",
+    "id" : "F64FA297",
+    "lastKnownWriteTime" : 1536503219,
+    "last_content_update" : 1536503219617,
+    "path" : "C:/Users/swesd/Desktop/NLP/SA_nlp/review_testing.R",
+    "project_path" : "review_testing.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "\n\ntmp <- create_tfidf_model(AllBooks[AllBooks$book == \"Way Of Kings\", ], text_variable = \"text\", class_variable = \"nr\")\n\nmat <- tmp[[3]]\nmat <- as.data.frame(as.matrix(mat))\nmat <- mat[,apply(mat, 2, var) != 0]\n\n\ndocs <- data.frame(row = rownames(mat))\nchardoc <- AllBooks[AllBooks$book == \"Way Of Kings\", c(\"character\", \"nr\")]\nind <- data.frame(nr = unique(chardoc$nr))\nind$row <- seq(1, nrow(ind), 1)\nchardoc <- left_join(chardoc, ind, by=\"nr\")\nchardoc$row <- as.character(chardoc$row)\n\n\nt_mat <- tidy(tmp[[3]]) %>% \n  arrange(row)\nt_mat <- right_join(t_mat, chardoc, by = \"row\")\nt_mat <- t_mat %>% \n  filter(character %in% relChars)\n\nggplot(t_mat, aes(x = column, y = value, col = character )) +\n  geom_point(alpha = 0.2)\n#######\nrequire(caret)\ntrans <- preProcess(mat, \n                   method= \"pca\")\nPC = predict(trans, mat)\nPC$row <- rownames(PC)\n\nt_PC = gather(PC, col, value, -row)\nt_PC <- right_join(t_PC, chardoc, by = \"row\")\nt_PC <- t_PC %>% \n  filter(character %in% relChars)\nggplot(t_PC, aes(x = col, y = value, col = character )) +\n  geom_point(alpha = 0.2)\n",
+    "created" : 1536436416968.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4182944677",
+    "id" : "E8650C67",
+    "lastKnownWriteTime" : 1536441168,
+    "last_content_update" : 1536441168741,
+    "path" : "C:/Users/swesd/Desktop/NLP/SA_nlp/tmptp.R",
+    "project_path" : "tmptp.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

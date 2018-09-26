@@ -1,0 +1,41 @@
+https://www.reddit.com/r/dataisbeautiful/comments/73q2et/harry_potter_books_wordclouds_oc/
+  
+  
+  
+  
+  
+  library(wordcloud)
+tmp <- rbind(char_words_ngrams, char_words_tokens)
+tmp$character <- as.character(tmp$character)
+rownames(tmp) <- tmp$character
+row.names(tmp) <- tmp$character
+tmp <- as.data.frame(tmp)
+tmp$character <- factor(tmp$character)
+tmp$word <- factor(tmp$word)
+tmp$i <- as.numeric((tmp$character))
+tmp$j <- as.numeric((tmp$word))
+
+sparse <- sparseMatrix(i = tmp$i,
+                       j = tmp$j,
+                       x = tmp$n,
+                       dimnames = list(levels(tmp$character), 
+                                       levels(tmp$word)
+                       ))
+
+tmp_tfidf <- tidytext::cast_dfm(data = tmp, term = "word", document = "doc", value = "n")
+tmp_dtm <- tmp %>% 
+  cast_dtm(character, word, n)
+
+
+
+comparison.cloud(t(sparse))
+dev.off()
+
+
+tmp %>% 
+  with(wordcloud(word, n, random.order = FALSE))
+
+wordcloud(words = tmp$word, freq = tmp$n, min.freq = 1,scale = c(2, 0.2),
+          max.words=200, random.order=FALSE, rot.per=0.1, 
+          ordered.colors=TRUE,
+          colors=brewer.pal(8, "Dark2")[factor(tmp$character)])

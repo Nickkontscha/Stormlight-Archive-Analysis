@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1537955133866.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "B3E5E2AB",
+    "lastKnownWriteTime" : 1537955176,
+    "last_content_update" : 1537955176873,
+    "path" : "C:/Users/swesd/Desktop/NLP/SA_nlp/pairwise_correlation.R",
+    "project_path" : "pairwise_correlation.R",
+    "properties" : {
+        "cursorPosition" : "1,40",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 9,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

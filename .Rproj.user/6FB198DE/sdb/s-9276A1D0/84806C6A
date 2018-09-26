@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "\n\ntmp <- create_tfidf_model(AllBooks[AllBooks$book == \"Way Of Kings\", ], text_variable = \"text\", class_variable = \"nr\")\n\n\nmat <- tmp[[3]]\nmat <- as.data.frame(as.matrix(mat))\n\n\n\ndocs <- data.frame(row = rownames(mat))\nchardoc <- AllBooks[AllBooks$book == \"Way Of Kings\", c(\"character\", \"nr\")]\nind <- data.frame(nr = unique(chardoc$nr))\nind$row <- seq(1, nrow(ind), 1)\nchardoc <- left_join(chardoc, ind, by=\"nr\")\nchardoc$row <- as.character(chardoc$row)\n\nmat$row <- rownames(mat)\n\nmat <- right_join(mat, chardoc, by = \"row\")\nmat <- mat %>% \n  filter(character %in% relChars) %>% \n  arrange(character)\nmat$index <- seq(1, nrow(mat), 1)\nmat$index <- factor(mat$index)\n\nlibrary(reshape)\nlongData <- melt(mat)\nlongData$val <- ((1+longData$value)*10)^2 /10\nlongData$val <- ((longData$val)-9)^2\n\nggplot(longData, aes(x = variable, y = index, fill=character)) + \n  geom_raster() + \n  labs(x=\"words\", y=\"index\", title=\"Matrix\") +\n  geom_point(aes(size=val)) +\n  theme_bw()\n",
+    "created" : 1536441377372.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "563683172",
+    "id" : "84806C6A",
+    "lastKnownWriteTime" : 1536490176,
+    "last_content_update" : 1536490176817,
+    "path" : "C:/Users/swesd/Desktop/NLP/SA_nlp/tmptp2.R",
+    "project_path" : "tmptp2.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

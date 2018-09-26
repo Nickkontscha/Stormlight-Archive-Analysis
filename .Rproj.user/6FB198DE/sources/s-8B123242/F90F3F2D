@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1537283096986.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "609312027",
+    "id" : "F90F3F2D",
+    "lastKnownWriteTime" : 1537955092,
+    "last_content_update" : 1537955092285,
+    "path" : "C:/Users/swesd/Desktop/NLP/SA_nlp/LDA.R",
+    "project_path" : "LDA.R",
+    "properties" : {
+        "cursorPosition" : "89,47",
+        "scrollLine" : "60",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

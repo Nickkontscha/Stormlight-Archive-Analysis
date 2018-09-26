@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1537913922160.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "D3B7CD96",
+    "lastKnownWriteTime" : 1537823115,
+    "last_content_update" : 1537823115,
+    "path" : "C:/Users/swesd/Desktop/NLP/SA_nlp/loadData/loadData_characters.R",
+    "project_path" : "loadData/loadData_characters.R",
+    "properties" : {
+        "cursorPosition" : "64,26",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 10,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

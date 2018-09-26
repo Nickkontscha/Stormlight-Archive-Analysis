@@ -1,0 +1,75 @@
+
+# Character information from:
+# Those are nice lists prepared by the community which gives us some information about who a chapter is about
+# https://coppermind.net/wiki/The_Way_of_Kings/Statistical_analysis
+# https://coppermind.net/wiki/Words_of_Radiance/Statistical_analysis
+# https://coppermind.net/wiki/Oathbringer/Statistical_analysis
+
+# A function to read the given excel file from a path with a few string operations to get them in a better format
+getCharacters <- function(path){
+  files <- list.files(path)
+  files <- paste(path, files, sep = "")
+  
+  chars <- data.frame(matrix(ncol = 4, nrow = 0))
+  for(i in 1:length(files)){
+    chars <- rbind(chars, read.xlsx(files[i], startRow = 2, colNames = F))
+  }
+  names(chars) <- c("chapter", "character", "wordCount", "percentage")
+  for(i in 1:nrow(chars)){
+    if(is.na(chars$chapter[i])){
+      chars$chapter[i] <- chars$chapter[i - 1]
+    }
+  }
+  chars$wordCount <- NULL
+  chars$percentage <- NULL
+  chars$chapter <- gsub(".*: ","",chars$chapter)
+  chars$chapter <- gsub(".*\\. ","",chars$chapter)
+  chars$chapter <- gsub("[[:punct:]]", "", chars$chapter)
+  chars$chapter <- gsub("[^[:alnum:][:space:]]", "", chars$chapter)
+  chars$chapter <- gsub("^\\s+|\\s+$", "", chars$chapter)
+  chars$chapter <- tolower(chars$chapter)
+  #chars$character <- tolower(chars$character)
+  
+  chars$flashback <- FALSE
+  for(i in 1:nrow(chars)){
+    if(grepl("(flashback)", chars$character[i])){
+      chars$character[i] <- gsub("\\s\\(flashback\\)", "", chars$character[i])
+      chars$flashback[i] <- TRUE
+    }
+  }
+  
+  for(i in 1:nrow(chars)){
+    if(chars$character[i] == "Szeth"){
+      chars$character[i] <- "Szeth-son-son-Vallano"
+    }
+  }
+  
+  return(chars)
+}
+
+# Get the characters of each book
+char_wok <- getCharacters("data/char/way_of_kings/")
+char_wor <- getCharacters("data/char/words_of_radiance/")
+char_oath <- getCharacters("data/char/oathbringer/")
+
+char_wok <- unique(char_wok)
+char_wor <- unique(char_wor)
+char_oath <- unique(char_oath)
+
+# I encountered a few errors on either the excel files or the names of the chapter in my .epub versions. 
+# So I have to fix them here
+char_wok$chapter[which(char_wok$chapter == "eyes hands or spears")] <- "eyes hands or spheres"
+char_oath$chapter[which(char_oath$chapter == "the others may stand")] <- "that others may stand"
+char_oath$chapter[which(char_oath$chapter == "set up to fall")] <- "set up to fail"
+char_oath$chapter[which(char_oath$chapter == "elista")] <- "ellista"
+char_oath$chapter[which(char_oath$chapter == "bright side")] <- "the bright side"
+
+# Get all characters
+all_chars <- c(char_wok$character,
+               char_wor$character,
+               char_oath$character)
+
+# and their frequencies
+all_chars <- as.data.frame(table(all_chars))
+
+rm(getCharacters)

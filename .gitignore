@@ -11,6 +11,7 @@ Exploration_bybook.RData
 LDA.RData
 pairwise_correlation.RData
 WorFreq.RData
+data/*
 
 # Example code in package build process
 *-Ex.R

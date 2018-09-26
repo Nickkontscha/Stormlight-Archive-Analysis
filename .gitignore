@@ -3,6 +3,7 @@
 .Rapp.history
 
 # Session Data files
+*.RData
 .RData
 correlation.R.RData
 correlation.RData

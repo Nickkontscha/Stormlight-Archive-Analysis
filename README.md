@@ -3,8 +3,8 @@
 
 -   [A text analysis of 'The Stormlight Archive' by Brandon Sanderson](#a-text-analysis-of-the-stormlight-archive-by-brandon-sanderson)
     -   [Data Preparation](#data-preparation)
-    -   [1. On Which Character Does Each Book Focus On?](#on-which-character-does-each-book-focus-on)
-    -   [2. What Do Different Word Frequencies Tell Us?](#what-do-different-word-frequencies-tell-us)
+    -   [On Which Character Does Each Book Focus On?](#on-which-character-does-each-book-focus-on)
+    -   [What Do Different Word Frequencies Tell Us?](#what-do-different-word-frequencies-tell-us)
         -   [The Most Important Words for Each Book According to Tfidf](#the-most-important-words-for-each-book-according-to-tfidf)
         -   [The Most Important Words for Certain Characters According to Tfidf](#the-most-important-words-for-certain-characters-according-to-tfidf)
         -   [Some Additional Information About Word Frequencies in General](#some-additional-information-about-word-frequencies-in-general)
@@ -40,7 +40,7 @@ I have the books as different .epub files. A .epub is basically a zipped file fo
 
 Keep in mind, that the books are not included in this github repository for obvious reasons.
 
-<details> <summary>`Code`</summary>
+<details> <summary>Code</summary>
 
 ``` r
 library(tidyr)
@@ -71,10 +71,10 @@ stopwords <- unique(stopwords)
 
 </details>
 
-1. On Which Character Does Each Book Focus On?
-----------------------------------------------
+On Which Character Does Each Book Focus On?
+-------------------------------------------
 
-I simply counted the number of chapters associated with *Kaladin*, *Shallan* or *Dalinar* and highlighted the number of chapters which are flashbacks. <details> <summary>`Code`</summary>
+I simply counted the number of chapters associated with *Kaladin*, *Shallan* or *Dalinar* and highlighted the number of chapters which are flashbacks. <details> <summary>Code</summary>
 
 ``` r
 # Count the frequency of the relevant characters in each book
@@ -99,16 +99,16 @@ charPlot <- ggplot(chars, aes( x = character, y = n, fill = flashback)) +
        fill = "Flashback") + 
   coord_flip()
 
-charPlot
+#charPlot
 ```
 
-![](README_files/figure-markdown_github/charPlot-1.png) </details> <img src="README_files/figure-markdown_github/charPlot plot-1.png" style="display: block; margin: auto;" />
+</details> <img src="README_files/figure-markdown_github/charPlot plot-1.png" style="display: block; margin: auto;" />
 
 By looking whether a character has flashbacks or not, it becomes clear who a book focuses about. One can see that *Shallan's* role was minor in the first book and that all characters are about equal in *Oathbringer*.
 
 I was able to do this easy approach with the help of the *Coppermind* community which published a table that specifies the point of view of each chapter. I can not simply assume to have additional data like this to work with in every analysis. Another way is to count the appearance of each character in every chapter per book and plot the percentage of how often *Kaladin*, *Shallan* or *Dalinar* gets mentioned.
 
-<details> <summary>`Code`</summary>
+<details> <summary>Code</summary>
 
 ``` r
 # This code has a lot of lines as everything needs to be done for each book
@@ -248,11 +248,10 @@ prop_oath <- ggplot(Oath_tokens, aes(x = index, y = prop, fill = word)) +
                     )
 
 library(grid)
-grid.arrange(prop_wok, prop_wor, prop_oath, ncol = 3,
-             top = textGrob("Percentage of How Often a Character Is Mentioned in Each Chapter",gp=gpar(fontsize=18,font=3)))
+#grid.arrange(prop_wok, prop_wor, prop_oath, ncol = 3, top = textGrob("Percentage of How Often a Character Is Mentioned in Each Chapter",gp=gpar(fontsize=18,font=3)))
 ```
 
-![](README_files/figure-markdown_github/Freq-1.png) </details> <img src="README_files/figure-markdown_github/Freq Plot-1.png" style="display: block; margin: auto;" />
+</details> <img src="README_files/figure-markdown_github/Freq Plot-1.png" style="display: block; margin: auto;" />
 
 One can see two additional things here:
 
@@ -263,23 +262,27 @@ Sanderson Avalanche:
 
 > A trademark in Brandon Sanderson's books is that in the end of the book, the pace starts to pick up dramatically. It seems like the book breaks apart while many threads start to connect, all the characters meet and the climax begins.
 
-2. What Do Different Word Frequencies Tell Us?
-----------------------------------------------
+What Do Different Word Frequencies Tell Us?
+-------------------------------------------
 
 A common technique to analyse texts is to look at word frequencies and then weight them by different factors. The most common concept there is the [Tf-Idf meassure](https://en.wikipedia.org/wiki/Tf%E2%80%93idf) which is short for term frequency–inverse document frequency. The meaning behind document can be substituted for texts written by different authors, chapters or text grouped by other characteristics. The goal behind it is to find words which describe one document of a group particularly well.
 
 It is defined by
 
+<p align="center">
 <img src="LaTeX/tf.png" style="display: block; margin: auto;" />
-
+</p>
+<p align="center">
 <img src="LaTeX/idf.png" style="display: block; margin: auto;" />
-
+</p>
+<p align="center">
 <img src="LaTeX/tfidf.png" style="display: block; margin: auto;" />
-
+</p>
 The *Tf* value is usually scaled with the highest term frequency in the document. The logarithm is used as a weighting scheme to give words that appear in many documents a smaller weight. There are many different formulas one can use. Another popular one is the smooth Idf which adds ![1](https://latex.codecogs.com/png.latex?1 "1") in the logarithm to prevent giving a word that appears in every document a value of ![0](https://latex.codecogs.com/png.latex?0 "0"):
 
+<p align="center">
 <img src="LaTeX/idf_smooth.png" style="display: block; margin: auto;" />
-
+</p>
 We can define a document in a few useful ways here:
 
 1.  Define a document as a book
@@ -291,7 +294,7 @@ When we try to describe a character in that way, it is important to note that it
 
 We will also see that finding important words by their *TfIdf* value for books results in something I found interesting compared to tweets and emails.
 
-<details> <summary>`Preparation Code`</summary>
+<details> <summary>Preparation Code</summary>
 
 ``` r
 source("loadData/loadData.R")
@@ -317,7 +320,7 @@ idf_smooth <- function(idf){
 
 ### The Most Important Words for Each Book According to Tfidf
 
-<details> <summary>`Code`</summary>
+<details> <summary>Code</summary>
 
 ``` r
 # I did not stem the words to make this analysis more comprehensible for readers not familiar with the topic (or data analysis at all)
@@ -391,13 +394,13 @@ b2_tfidf <- ggplot(plot_book_words_ngrams_tfidf, aes(reorder(ordering, tf_idf), 
   theme(panel.background = element_rect(fill = "#ecf0f1")) + 
   scale_fill_manual(values = swatch()[c(3, 7, 2)]) 
 
-gA <- ggplotGrob(b1_tfidf)
-gB <- ggplotGrob(b2_tfidf)
-grid::grid.newpage()
-grid::grid.draw(rbind(gA, gB))
+#gA <- ggplotGrob(b1_tfidf)
+#gB <- ggplotGrob(b2_tfidf)
+#grid::grid.newpage()
+#grid::grid.draw(rbind(gA, gB))
 ```
 
-![](README_files/figure-markdown_github/Books%20Tfidf-1.png) </details>
+</details>
 
 <img src="README_files/figure-markdown_github/Books Tfidf Plot2-1.png" style="display: block; margin: auto;" />
 
@@ -407,7 +410,7 @@ It is also evident that creating word pairs by looking at the nearest words crea
 
 ### The Most Important Words for Certain Characters According to Tfidf
 
-<details> <summary>`Code`</summary>
+<details> <summary>Code</summary>
 
 ``` r
 # Same as before but for the characters
@@ -483,13 +486,13 @@ c2_tfidf <- ggplot(plot_char_words_ngrams_tfidf, aes(reorder(ordering, tf_idf), 
   theme(panel.background = element_rect(fill = "#ecf0f1")) + 
   scale_fill_manual(values = swatch()[c(2, 4, 9)]) 
 
-gA <- ggplotGrob(c1_tfidf)
-gB <- ggplotGrob(c2_tfidf)
-grid::grid.newpage()
-grid::grid.draw(rbind(gA, gB))
+#gA <- ggplotGrob(c1_tfidf)
+#gB <- ggplotGrob(c2_tfidf)
+#grid::grid.newpage()
+#grid::grid.draw(rbind(gA, gB))
 ```
 
-![](README_files/figure-markdown_github/Chars%20Tfidf-1.png) </details>
+</details>
 
 <img src="README_files/figure-markdown_github/Chars Tfidf Plot2-1.png" style="display: block; margin: auto;" /> As before, characters which are usually around *Kaladin*, *Shallan* or *Dalinar* dominate the according graph with characters from flashbacks having the highest influence. I personally find the word pairs to be more interesting here. Chapters from the viewpoint of a character usually describe what the character sees. Most importantly their familiars and friends.
 
@@ -508,7 +511,7 @@ Those books here are written by the same author and they are not his first books
 Clustering chapters for each character
 --------------------------------------
 
-<details> <summary>`Preparation Code`</summary>
+<details> <summary>Preparation Code</summary>
 
 ``` r
 source("loadData/loadData.R")
@@ -558,7 +561,7 @@ One can still ask the question: How similar are the different viewpoints to each
 
 One way to do that is to extract some text features and embed each chapter into a high dimensional space and then calculate the correlation of the vectors which represent a chapter. This will be done in the next code chunk. The result is a correlation matrix and the correlation of each chapter can be clustered with a dendrogram.
 
-<details> <summary>`Preparation Code`</summary>
+<details> <summary>Preparation Code</summary>
 
 ``` r
 # Create data set with just an id and text as required by textfeatures
@@ -616,17 +619,17 @@ op_k[which(op_k == min(op_k))]
 ```
 
     ##        5 
-    ## 8.280271
+    ## 7.793009
 
 ``` r
 clusterNr <- as.integer(names(op_k[which(op_k == min(op_k))]))
 dend <- distance %>% hclust() %>% as.dendrogram
-par(mar = c(0,0,0,10))
-dend %>% set("branches_k_color", k = clusterNr) %>% set("labels_col", k= clusterNr) %>% plot(horiz = TRUE) 
-dend %>% rect.dendrogram(k = clusterNr, horiz = TRUE, border = 8, lty = 5, lwd = 1)
+#par(mar = c(0,0,0,10))
+#dend %>% set("branches_k_color", k = clusterNr) %>% set("labels_col", k= clusterNr) %>% plot(horiz = TRUE) 
+#dend %>% rect.dendrogram(k = clusterNr, horiz = TRUE, border = 8, lty = 5, lwd = 1)
 ```
 
-![](README_files/figure-markdown_github/Preparation4-2.png) </details>
+</details>
 
 <img src="README_files/figure-markdown_github/plot dendogram-1.png" style="display: block; margin: auto;" />
 

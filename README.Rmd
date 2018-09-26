@@ -40,7 +40,7 @@ I have the books as different .epub files. A .epub is basically a zipped file fo
 Keep in mind, that the books are not included in this github repository for obvious reasons.
 
 <details>
-<summary>`Code`</summary>
+<summary>Code</summary>
 ```{r Preparation, message=FALSE, warning=FALSE}
 library(tidyr)
 library(tidytext)
@@ -70,11 +70,11 @@ stopwords <- unique(stopwords)
 </details>
 
 
-## 1. On Which Character Does Each Book Focus On?
+## On Which Character Does Each Book Focus On?
 
 I simply counted the number of chapters associated with *Kaladin*, *Shallan* or *Dalinar* and highlighted the number of chapters which are flashbacks.
 <details>
-<summary>`Code`</summary>
+<summary>Code</summary>
 ```{r charPlot}
 # Count the frequency of the relevant characters in each book
 chars <- AllBooks %>% 
@@ -98,7 +98,7 @@ charPlot <- ggplot(chars, aes( x = character, y = n, fill = flashback)) +
        fill = "Flashback") + 
   coord_flip()
 
-charPlot
+#charPlot
 ```
 </details>
 ```{r charPlot plot, echo=FALSE, fig.align='center', fig.height=2, fig.width=8}
@@ -111,7 +111,7 @@ I was able to do this easy approach with the help of the *Coppermind* community 
 
 
 <details>
-<summary>`Code`</summary>
+<summary>Code</summary>
 ```{r Freq}
 # This code has a lot of lines as everything needs to be done for each book
 
@@ -250,8 +250,7 @@ prop_oath <- ggplot(Oath_tokens, aes(x = index, y = prop, fill = word)) +
                     )
 
 library(grid)
-grid.arrange(prop_wok, prop_wor, prop_oath, ncol = 3,
-             top = textGrob("Percentage of How Often a Character Is Mentioned in Each Chapter",gp=gpar(fontsize=18,font=3)))
+#grid.arrange(prop_wok, prop_wor, prop_oath, ncol = 3, top = textGrob("Percentage of How Often a Character Is Mentioned in Each Chapter",gp=gpar(fontsize=18,font=3)))
 ```
 </details>
 ```{r Freq Plot, echo=FALSE, fig.align='center', fig.height=3, fig.width=10}
@@ -270,7 +269,7 @@ Sanderson Avalanche:
 > A trademark in Brandon Sanderson's books is that in the end of the book, the pace starts to pick up dramatically. It seems like the book breaks apart while many threads start to connect, all the characters meet and the climax begins.
 
 
-## 2. What Do Different Word Frequencies Tell Us?
+## What Do Different Word Frequencies Tell Us?
 
 A common technique to analyse texts is to look at word frequencies and then weight them by different factors. The most common concept there is the [Tf-Idf meassure](https://en.wikipedia.org/wiki/Tf%E2%80%93idf) which is short for term frequency–inverse document frequency. The meaning behind document can be substituted for texts written by different authors, chapters or text grouped by other characteristics. 
 The goal behind it is to find words which describe one document of a group particularly well.
@@ -279,22 +278,28 @@ It is defined by
 ```{r Tf, echo=FALSE}
 #$$ Tf(\text{term, document}) = n_{\text{term in document}}$$
 ```
+<p align="center">
 <img src="LaTeX/tf.png" style="display: block; margin: auto;" />
+</p>
 ```{r Idf, echo=FALSE}
 #$$ Idf(\text{term}) = \log{\left(\frac{n_{ \text{documents}}}{n_{\text{documents containing term}}}\right)}$$
 ```
+<p align="center">
 <img src="LaTeX/idf.png" style="display: block; margin: auto;" />
+</p>
 ```{r Tfidf, echo=FALSE}
 #$$TfIdf(\text{term, document}) = Tf(\text{term, document}) * Idf(\text{term}).$$
 ```
+<p align="center">
 <img src="LaTeX/tfidf.png" style="display: block; margin: auto;" />
-
+</p>
 The *Tf* value is usually scaled with the highest term frequency in the document. The logarithm is used as a weighting scheme to give words that appear in many documents a smaller weight. There are many different formulas one can use. Another popular one is the smooth Idf which adds $1$ in the logarithm to prevent giving a word that appears in every document a value of $0$:
 ```{r idf_smooth, echo=FALSE}
 #$$ Idf_{\text{smooth}}(\text{term}) = \log{\left(1 + \frac{n_{\text{documents}}}{n_{\text{documents containing term}}}\right)}.$$
 ```
+<p align="center">
 <img src="LaTeX/idf_smooth.png" style="display: block; margin: auto;" />
-
+</p>
 We can define a document in a few useful ways here:
 
 1. Define a document as a book
@@ -307,7 +312,7 @@ When we try to describe a character in that way, it is important to note that it
 We will also see that finding important words by their *TfIdf* value for books results in something I found interesting compared to tweets and emails.
 
 <details>
-<summary>`Preparation Code`</summary>
+<summary>Preparation Code</summary>
 ```{r Preparation2, message=FALSE, warning=FALSE}
 source("loadData/loadData.R")
 
@@ -332,7 +337,7 @@ idf_smooth <- function(idf){
 ### The Most Important Words for Each Book According to Tfidf
 
 <details>
-<summary>`Code`</summary>
+<summary>Code</summary>
 ```{r Books Tfidf, message=FALSE, warning=FALSE}
 # I did not stem the words to make this analysis more comprehensible for readers not familiar with the topic (or data analysis at all)
 
@@ -405,10 +410,10 @@ b2_tfidf <- ggplot(plot_book_words_ngrams_tfidf, aes(reorder(ordering, tf_idf), 
   theme(panel.background = element_rect(fill = "#ecf0f1")) + 
   scale_fill_manual(values = swatch()[c(3, 7, 2)]) 
 
-gA <- ggplotGrob(b1_tfidf)
-gB <- ggplotGrob(b2_tfidf)
-grid::grid.newpage()
-grid::grid.draw(rbind(gA, gB))
+#gA <- ggplotGrob(b1_tfidf)
+#gB <- ggplotGrob(b2_tfidf)
+#grid::grid.newpage()
+#grid::grid.draw(rbind(gA, gB))
 ```
 </details>
 
@@ -428,7 +433,7 @@ It is also evident that creating word pairs by looking at the nearest words crea
 ### The Most Important Words for Certain Characters According to Tfidf
 
 <details>
-<summary>`Code`</summary>
+<summary>Code</summary>
 ```{r Chars Tfidf, message=FALSE, warning=FALSE}
 # Same as before but for the characters
 char_words_tokens <- AllBooks %>% 
@@ -503,10 +508,10 @@ c2_tfidf <- ggplot(plot_char_words_ngrams_tfidf, aes(reorder(ordering, tf_idf), 
   theme(panel.background = element_rect(fill = "#ecf0f1")) + 
   scale_fill_manual(values = swatch()[c(2, 4, 9)]) 
 
-gA <- ggplotGrob(c1_tfidf)
-gB <- ggplotGrob(c2_tfidf)
-grid::grid.newpage()
-grid::grid.draw(rbind(gA, gB))
+#gA <- ggplotGrob(c1_tfidf)
+#gB <- ggplotGrob(c2_tfidf)
+#grid::grid.newpage()
+#grid::grid.draw(rbind(gA, gB))
 ```
 </details>
 
@@ -537,7 +542,7 @@ The location and the characters which interact with the main characters change i
 ## Clustering chapters for each character
 
 <details>
-<summary>`Preparation Code`</summary>
+<summary>Preparation Code</summary>
 ```{r Preparation3, message=FALSE, warning=FALSE}
 source("loadData/loadData.R")
 
@@ -578,7 +583,7 @@ One can still ask the question: How similar are the different viewpoints to each
 One way to do that is to extract some text features and embed each chapter into a high dimensional space and then calculate the correlation of the vectors which represent a chapter. This will be done in the next code chunk. The result is a correlation matrix and the correlation of each chapter can be clustered with a dendrogram.
 
 <details>
-<summary>`Preparation Code`</summary>
+<summary>Preparation Code</summary>
 ```{r Preparation4, message=FALSE, warning=FALSE}
 # Create data set with just an id and text as required by textfeatures
 data <- data_frame(
@@ -631,9 +636,9 @@ op_k[which(op_k == min(op_k))]
 
 clusterNr <- as.integer(names(op_k[which(op_k == min(op_k))]))
 dend <- distance %>% hclust() %>% as.dendrogram
-par(mar = c(0,0,0,10))
-dend %>% set("branches_k_color", k = clusterNr) %>% set("labels_col", k= clusterNr) %>% plot(horiz = TRUE) 
-dend %>% rect.dendrogram(k = clusterNr, horiz = TRUE, border = 8, lty = 5, lwd = 1)
+#par(mar = c(0,0,0,10))
+#dend %>% set("branches_k_color", k = clusterNr) %>% set("labels_col", k= clusterNr) %>% plot(horiz = TRUE) 
+#dend %>% rect.dendrogram(k = clusterNr, horiz = TRUE, border = 8, lty = 5, lwd = 1)
 ```
 </details>
 

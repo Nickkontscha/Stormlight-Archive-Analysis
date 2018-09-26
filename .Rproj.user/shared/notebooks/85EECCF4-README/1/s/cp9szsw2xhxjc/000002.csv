@@ -1,3 +1,0 @@
-"0","library(grid)"
-"0","grid.arrange(prop_wok, prop_wor, prop_oath, ncol = 3,"
-"0","             top = textGrob(""Percentage of How Often a Character Is Mentioned in Each Chapter"",gp=gpar(fontsize=18,font=3)))"

@@ -1,5 +1,0 @@
-"0","all_chars <- as.data.frame(table(AllBooks$character))"
-"0","names(all_chars) <- c(""Name"", ""Frequency"")"
-"0","all_chars <- all_chars[order(all_chars$Frequency, decreasing = T),]"
-"0","rownames(all_chars) <- NULL"
-"0","head(all_chars)"

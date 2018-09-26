@@ -1,3 +1,0 @@
-"0","gA <- ggplotGrob(b1_tfidf)"
-"0","gB <- ggplotGrob(b2_tfidf)"
-"0","grid::grid.newpage()"

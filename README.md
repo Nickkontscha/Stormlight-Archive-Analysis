@@ -74,7 +74,10 @@ stopwords <- unique(stopwords)
 On Which Character Does Each Book Focus On?
 -------------------------------------------
 
-I simply counted the number of chapters associated with *Kaladin*, *Shallan* or *Dalinar* and highlighted the number of chapters which are flashbacks. <details> <summary>Code</summary>
+I simply counted the number of chapters associated with *Kaladin*, *Shallan* or *Dalinar* and highlighted the number of chapters which are flashbacks. 
+
+A detail: By looking at the number of chapters at the X-axis, one might think that I have misscalculated the number of chapters. This is not an error and a result that I chapter is counted twice, if it has multiple point of views.
+<details> <summary>Code</summary>
 
 ``` r
 # Count the frequency of the relevant characters in each book

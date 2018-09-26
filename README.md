@@ -633,4 +633,4 @@ dend <- distance %>% hclust() %>% as.dendrogram
 
 <img src="README_files/figure-markdown_github/plot dendogram-1.png" style="display: block; margin: auto;" />
 
-The clusters are somewhat sensible, but one has to keep in mind that there is no 'exact solution' to this question. One can see that most of bridge 4 and family members are clustered together. On the first split one can observe that about half of the characters get grouped into one big pile. Those are all negatively correlated to the other side of the tree.
+The clusters are somewhat sensible, but one has to keep in mind that there is no 'exact solution' to this question. One can see that most of bridge 4 and family members are clustered together. 

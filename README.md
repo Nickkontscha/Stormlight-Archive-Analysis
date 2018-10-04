@@ -258,7 +258,7 @@ library(grid)
 
 One can see two additional things here:
 
-1.  It is evident that the characters start to interact with each other more in the course of the series and the point of views are changed more often
+1.  It is evident that the characters start to interact with each other more in the course of the series and the point of views are changed more often. But keep in mind that Oathbringer has a lot more chapters which makes the plot seem more squashed.
 2.  There is a difference in the last third of the book. Fans refer to that part as the **Brandon Avalanche**/**Sanderson Avalanche**.
 
 Sanderson Avalanche:
